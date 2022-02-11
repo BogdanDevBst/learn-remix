@@ -1,4 +1,4 @@
-import { ActionFunction, Form } from 'remix';
+import { ActionFunction, Form, useActionData } from 'remix';
 
 export let action: ActionFunction = async ({ request }) => {
   let formData = await request.formData();
@@ -19,6 +19,8 @@ export let action: ActionFunction = async ({ request }) => {
 };
 
 export default function Newsletter() {
+  let actionData = useActionData();
+
   return (
     <main>
       <h2>Subscribe!</h2>
@@ -28,6 +30,7 @@ export default function Newsletter() {
           <input type="email" name="email" placeholder="you@example.com" />
           <button type="submit">Subscribe</button>
         </fieldset>
+        <p>{actionData?.error ? actionData.message : <>&nbsp;</>}</p>
       </Form>
     </main>
   );
